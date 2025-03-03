@@ -37,11 +37,13 @@ EthernetClass::EthernetClass(SPIClass *spiParameter)
 int EthernetClass::begin(uint8_t *mac, unsigned long timeout, unsigned long responseTimeout)
 {
 	log_e("EthernetClass::begin core = %d",xPortGetCoreID());
-	W5100.init(spi);
 	static DhcpClass s_dhcp;
 	_dhcp = &s_dhcp;
 	// Initialise the basic info
-	if (W5100.init(spi) == 0) return 0;
+	if (W5100.init(spi) == 0) {
+		log_e("Failed to initialze W5100Class");
+		return 0;
+	}
 	spi->beginTransaction(SPI_ETHERNET_SETTINGS);
 	W5100.setMACAddress(mac);
 	W5100.setIPAddress(IPAddress(0,0,0,0).raw_address());
