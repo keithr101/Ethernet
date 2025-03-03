@@ -222,11 +222,13 @@ uint8_t W5100Class::softReset(void)
 	// then wait for soft reset to complete
 	do {
 		uint8_t mr = readMR();
-		Serial.print("mr=");
-		Serial.println(mr, HEX);
+		log_e("mr=%X",mr);
+		//Serial.print("mr=");
+		//Serial.println(mr, HEX);
 		if (mr == 0) return 1;
 		delay(1);
 	} while (++count < 20);
+	log_e("WIZnet soft reset return 0");
 	return 0;
 }
 
@@ -280,8 +282,9 @@ uint8_t W5100Class::isW5500(void)
 	writeMR(0x00);
 	if (readMR() != 0x00) return 0;
 	int ver = readVERSIONR_W5500();
-	Serial.print("version=");
-	Serial.println(ver);
+	log_e("version= %d",ver);
+	//Serial.print("version=");
+	//Serial.println(ver);
 	if (ver != 4) return 0;
 	log_e("chip is W5500");
 	return 1;
