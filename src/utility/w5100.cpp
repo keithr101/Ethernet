@@ -216,14 +216,14 @@ uint8_t W5100Class::softReset(void)
 {
 	uint16_t count=0;
 
-	//Serial.println("WIZnet soft reset");
+	log_e("WIZnet soft reset");
 	// write to reset bit
 	writeMR(0x80);
 	// then wait for soft reset to complete
 	do {
 		uint8_t mr = readMR();
-		//Serial.print("mr=");
-		//Serial.println(mr, HEX);
+		Serial.print("mr=");
+		Serial.println(mr, HEX);
 		if (mr == 0) return 1;
 		delay(1);
 	} while (++count < 20);
@@ -232,7 +232,7 @@ uint8_t W5100Class::softReset(void)
 
 uint8_t W5100Class::isW5100(void)
 {
-	log_e("Is it a w5100?");
+	log_e("isw5100?");
 	chip = 51;
 	//Serial.println("w5100.cpp: detect W5100 chip");
 	if (!softReset()) return 0;
@@ -243,13 +243,14 @@ uint8_t W5100Class::isW5100(void)
 	writeMR(0x00);
 	if (readMR() != 0x00) return 0;
 	//Serial.println("chip is W5100");
-	log_e("Exiting isW5100");
+	log_e("chip is isW5100");
 	return 1;
 }
 
 uint8_t W5100Class::isW5200(void)
 {
 	chip = 52;
+	log_e("isW5200?");
 	//Serial.println("w5100.cpp: detect W5200 chip");
 	if (!softReset()) return 0;
 	writeMR(0x08);
@@ -262,14 +263,15 @@ uint8_t W5100Class::isW5200(void)
 	//Serial.print("version=");
 	//Serial.println(ver);
 	if (ver != 3) return 0;
-	//Serial.println("chip is W5200");
+	log_e("chip is W5200");
 	return 1;
 }
 
 uint8_t W5100Class::isW5500(void)
 {
 	chip = 55;
-	//Serial.println("w5100.cpp: detect W5500 chip");
+	log_e("isW5500?");
+	//Serial.println("w5100.cpp(272): detect W5500 chip");
 	if (!softReset()) return 0;
 	writeMR(0x08);
 	if (readMR() != 0x08) return 0;
@@ -278,10 +280,10 @@ uint8_t W5100Class::isW5500(void)
 	writeMR(0x00);
 	if (readMR() != 0x00) return 0;
 	int ver = readVERSIONR_W5500();
-	//Serial.print("version=");
-	//Serial.println(ver);
+	Serial.print("version=");
+	Serial.println(ver);
 	if (ver != 4) return 0;
-	//Serial.println("chip is W5500");
+	log_e("chip is W5500");
 	return 1;
 }
 
