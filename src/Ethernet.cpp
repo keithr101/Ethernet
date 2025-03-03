@@ -233,12 +233,4 @@ void EthernetClass::setRetransmissionCount(uint8_t num)
 }
 
 
-
-
-
-
-
-
-
-
 EthernetClass Ethernet;
