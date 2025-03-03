@@ -32,14 +32,14 @@ EthernetClass::EthernetClass(SPIClass *spiParameter)
 {
 	log_e("EthernetClass::EthernetClass(..) core = %d",xPortGetCoreID());
 	spi = spiParameter;
-	W5100.init(spi);
 }
 
 int EthernetClass::begin(uint8_t *mac, unsigned long timeout, unsigned long responseTimeout)
 {
+	log_e("EthernetClass::begin core = %d",xPortGetCoreID());
+	W5100.init(spi);
 	static DhcpClass s_dhcp;
 	_dhcp = &s_dhcp;
-	log_e("EthernetClass::begin core = %d",xPortGetCoreID());
 	// Initialise the basic info
 	if (W5100.init(spi) == 0) return 0;
 	spi->beginTransaction(SPI_ETHERNET_SETTINGS);

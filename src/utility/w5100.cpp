@@ -95,7 +95,7 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	}
 
 	if (initialized) return 1;
-	log_e("Initializing W5100Class");
+	log_e("W5100Class::init(..) core = %d",xPortGetCoreID());
 	// Many Ethernet shields have a CAT811 or similar reset chip
 	// connected to W5100 or W5200 chips.  The W5200 will not work at
 	// all, and may even drive its MISO pin, until given an active low
