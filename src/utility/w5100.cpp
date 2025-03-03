@@ -107,11 +107,14 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	delay(560);
 	//Serial.println("w5100 init");
 
-	spi->begin();
+	//spi->begin();
+	log_e("Got here 1");
 	initSS();
+	log_e("Got Here 2");
 	resetSS();
+	log_e("Got Here 3");
 	spi->beginTransaction(SPI_ETHERNET_SETTINGS);
-
+	log_e("Got Here 4");
 	// Attempt W5200 detection first, because W5200 does not properly
 	// reset its SPI state when CS goes high (inactive).  Communication
 	// from detecting the other chips can leave the W5200 in a state
