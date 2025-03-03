@@ -116,7 +116,9 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	// reset its SPI state when CS goes high (inactive).  Communication
 	// from detecting the other chips can leave the W5200 in a state
 	// where it won't recover, unless given a reset pulse.
+	log_e("Testing chip type");
 	if (isW5200()) {
+		log_e("It's a w5200");
 		CH_BASE_MSB = 0x40;
 #ifdef ETHERNET_LARGE_BUFFERS
 #if MAX_SOCK_NUM <= 1
@@ -142,6 +144,7 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	// SPI well with this chip.  It appears to be very resilient,
 	// so try it after the fragile W5200
 	} else if (isW5500()) {
+		log_e("It's a w5500");
 		CH_BASE_MSB = 0x10;
 #ifdef ETHERNET_LARGE_BUFFERS
 #if MAX_SOCK_NUM <= 1
@@ -169,6 +172,7 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	// communication.  W5100 is also the only chip without a VERSIONR
 	// register for identification, so we check this last.
 	} else if (isW5100()) {
+		log_e("It's a w5100");
 		CH_BASE_MSB = 0x04;
 #ifdef ETHERNET_LARGE_BUFFERS
 #if MAX_SOCK_NUM <= 1
@@ -193,7 +197,7 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	// that's heard other SPI communication if its chip select
 	// pin wasn't high when a SD card or other SPI chip was used.
 	} else {
-		//Serial.println("no chip :-(");
+		log_e("no chip :-(");
 		chip = 0;
 		spi->endTransaction();
 		return 0; // no known chip is responding :-(
@@ -225,6 +229,7 @@ uint8_t W5100Class::softReset(void)
 
 uint8_t W5100Class::isW5100(void)
 {
+	log_e("Is it a w5100?");
 	chip = 51;
 	//Serial.println("w5100.cpp: detect W5100 chip");
 	if (!softReset()) return 0;
@@ -235,6 +240,7 @@ uint8_t W5100Class::isW5100(void)
 	writeMR(0x00);
 	if (readMR() != 0x00) return 0;
 	//Serial.println("chip is W5100");
+	log_e("Exiting isW5100");
 	return 1;
 }
 
