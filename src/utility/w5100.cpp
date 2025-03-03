@@ -89,9 +89,13 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	static bool initialized = false;
 	uint8_t i;
 	spi = spiParameter;
+	if (spi == nullptr) {
+		log_e("NULL Pointer");
+		return 0; //null pointer for spi .... nosense in continuing;
+	}
 
 	if (initialized) return 1;
-
+	log_e("Initializing W5100Class");
 	// Many Ethernet shields have a CAT811 or similar reset chip
 	// connected to W5100 or W5200 chips.  The W5200 will not work at
 	// all, and may even drive its MISO pin, until given an active low
@@ -196,6 +200,7 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	}
 	spi->endTransaction();
 	initialized = true;
+	log_e("W5100Class succesfully Initialized");
 	return 1; // successful init
 }
 
