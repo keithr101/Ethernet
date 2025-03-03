@@ -31,6 +31,7 @@ SPIClass* EthernetClass::spi;
 EthernetClass::EthernetClass(SPIClass *spiParameter)
 {
 	spi = spiParameter;
+	W5100.init(spi);
 }
 
 int EthernetClass::begin(uint8_t *mac, unsigned long timeout, unsigned long responseTimeout)
