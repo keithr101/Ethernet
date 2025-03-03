@@ -225,7 +225,10 @@ uint8_t W5100Class::softReset(void)
 		log_e("mr=%X",mr);
 		//Serial.print("mr=");
 		//Serial.println(mr, HEX);
-		if (mr == 0) return 1;
+		if (mr == 0) {
+			log_e("WIZnet soft reset return 1");
+			return 1;
+		}
 		delay(1);
 	} while (++count < 20);
 	log_e("WIZnet soft reset return 0");
