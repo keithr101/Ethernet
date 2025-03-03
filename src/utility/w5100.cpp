@@ -112,7 +112,7 @@ uint8_t W5100Class::init(SPIClass *spiParameter)
 	initSS();
 	log_e("Got Here 2");
 	resetSS();
-	log_e("Got Here 3");
+	log_e("Got Here 3 core = %d",xPortGetCoreID());
 	spi->beginTransaction(SPI_ETHERNET_SETTINGS);
 	log_e("Got Here 4");
 	// Attempt W5200 detection first, because W5200 does not properly
