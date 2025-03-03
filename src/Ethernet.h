@@ -52,6 +52,7 @@
 #include "Client.h"
 #include "Server.h"
 #include "Udp.h"
+#include <SPI.h>
 
 enum EthernetLinkStatus {
 	Unknown,
@@ -79,6 +80,7 @@ public:
 	// Initialise the Ethernet shield to use the provided MAC address and
 	// gain the rest of the configuration through DHCP.
 	// Returns 0 if the DHCP configuration failed, and 1 if it succeeded
+	EthernetClass(SPIClass *spiParameter = &SPI);
 	static int begin(uint8_t *mac, unsigned long timeout = 60000, unsigned long responseTimeout = 4000);
 	static int maintain();
 	static EthernetLinkStatus linkStatus();
@@ -142,6 +144,7 @@ private:
 	static bool socketSendUDP(uint8_t s);
 	// Initialize the "random" source port number
 	static void socketPortRand(uint16_t n);
+	static SPIClass *spi;
 };
 
 extern EthernetClass Ethernet;

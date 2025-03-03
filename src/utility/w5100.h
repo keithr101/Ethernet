@@ -126,7 +126,7 @@ enum W5100Linkstatus {
 class W5100Class {
 
 public:
-  static uint8_t init(void);
+  static uint8_t init(SPIClass *spiParameter = &SPI);
 
   inline void setGatewayIp(const uint8_t * addr) { writeGAR(addr); }
   inline void getGatewayIp(uint8_t * addr) { readGAR(addr); }
@@ -443,6 +443,7 @@ private:
 		digitalWrite(ss_pin, HIGH);
 	}
 #endif
+  static SPIClass* spi;
 };
 
 extern W5100Class W5100;
