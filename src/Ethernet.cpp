@@ -26,6 +26,8 @@
 IPAddress EthernetClass::_dnsServerAddress;
 DhcpClass* EthernetClass::_dhcp = NULL;
 
+SPIClass* EthernetClass::spi;
+
 EthernetClass::EthernetClass(SPIClass *spiParameter)
 {
 	spi = spiParameter;
