@@ -82,6 +82,7 @@ W5100Class W5100;
   uint32_t W5100Class::ss_pin_mask;
 #endif
 
+SPIClass* W5100Class::spi;
 
 uint8_t W5100Class::init(SPIClass *spiParameter)
 {
